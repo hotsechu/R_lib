@@ -1,11 +1,20 @@
 
 rm(list = ls(all.names = TRUE))
+ENTORNO <- Sys.getenv("ENTORNO")
+
+if (ENTORNO != "Linux") {
+  separador <- "\\"
+} else {
+  separador <- "/"
+}
 
 DirectorioFotos <- 
-  "C:\\Users\\jgarribas\\OneDrive - AIREF\\Imágenes\\Móvil\\"
+  "~/Imágenes/"
+#  "C:\\Users\\usuario\\Imágenes\\Móvil\\"
 
 DirectorioCarga <- 
-  "C:\\Users\\jgarribas\\OneDrive - AIREF\\Imágenes\\Móvil\\NuevaCarga"
+  "~/Imágenes/NuevaCarga/"
+#  "C:\\Users\\usuario\\Imágenes\\Móvil\\NuevaCarga"
 
 listaFicheros <- 
   list.files(DirectorioCarga)
@@ -16,24 +25,33 @@ for (fichero in listaFicheros ) {
   MesFoto <- substr(fichero, 5, 6) 
   DiaFoto <- substr(fichero, 7, 8)
   
-  DirectorioAño <- paste0(DirectorioFotos, AñoFoto)
+  DirectorioAño <- paste0(DirectorioFotos, 
+                          AñoFoto)
+  
   if (!dir.exists(DirectorioAño)) {
     dir.create(DirectorioAño)
   }
   
-  DirectorioMes <- paste0(DirectorioFotos, AñoFoto, "\\", MesFoto ) 
+  DirectorioMes <- paste0(DirectorioFotos, 
+                          AñoFoto, separador, 
+                          MesFoto ) 
   if (!dir.exists(DirectorioMes)) {
     dir.create(DirectorioMes)
   }
   
-  DirectorioDia <- paste0(DirectorioFotos, AñoFoto, "\\", MesFoto, "\\", DiaFoto ) 
+  DirectorioDia <- paste0(DirectorioFotos, 
+                          AñoFoto, separador, 
+                          MesFoto, separador, 
+                          DiaFoto ) 
   if (!dir.exists(DirectorioDia)) {
     dir.create(DirectorioDia)
   }
   
   file.copy(
-    paste0(DirectorioCarga, "\\", fichero), 
-    paste0(DirectorioDia, "\\", fichero),
+    paste0(DirectorioCarga, separador, 
+           fichero), 
+    paste0(DirectorioDia, separador, 
+           fichero),
     overwrite = FALSE
     )
 
