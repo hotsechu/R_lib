@@ -1,4 +1,12 @@
 
+# Propósito del programa --------------------------------------------------
+# A partir de una carpeta donde tenemos fotografías descargadas cuyos nombres 
+# son del formato:
+#                    AAAAMMDD_nombre.ext
+# Las copiamos a un árbol de directorios dentro de la carpeta Imágenes ( o la
+# que se desee) con el esquema AAAA / MM / DD 
+
+
 rm(list = ls(all.names = TRUE))
 ENTORNO <- Sys.getenv("ENTORNO")
 
@@ -13,8 +21,9 @@ DirectorioFotos <-
 #  "C:\\Users\\usuario\\Imágenes\\Móvil\\"
 
 DirectorioCarga <- 
-  "~/Imágenes/NuevaCarga/"
-#  "C:\\Users\\usuario\\Imágenes\\Móvil\\NuevaCarga"
+  "~/Descargas/NuevaCarga/"
+#  "C:\\Users\\usuario\\Descargas\\NuevaCarga"
+
 
 listaFicheros <- 
   list.files(DirectorioCarga)
@@ -35,6 +44,7 @@ for (fichero in listaFicheros ) {
   DirectorioMes <- paste0(DirectorioFotos, 
                           AñoFoto, separador, 
                           MesFoto ) 
+  
   if (!dir.exists(DirectorioMes)) {
     dir.create(DirectorioMes)
   }
@@ -43,6 +53,7 @@ for (fichero in listaFicheros ) {
                           AñoFoto, separador, 
                           MesFoto, separador, 
                           DiaFoto ) 
+  
   if (!dir.exists(DirectorioDia)) {
     dir.create(DirectorioDia)
   }
